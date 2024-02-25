@@ -59,9 +59,11 @@ class LoginScreen extends StatelessWidget {
                           padding: EdgeInsets.all(8.0),
                           child: Divider(thickness: 2),
                         ),
-                        TextButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Cadastro()));
-                        }, child: Text("Cadastre-se",style: TextStyle(color: Colors.black),)),
+                        TextButton(onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => Cadastro()));
+                        }, child: Text("Cadastre-se",
+                          style: TextStyle(color: Colors.black),)),
                         SizedBox(
                           height: 50,
                           child: TextFormField(

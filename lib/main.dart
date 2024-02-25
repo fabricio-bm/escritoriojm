@@ -1,4 +1,3 @@
-//import 'package:app_diario/screens/login_screen/login_screen_old.dart';
 import 'package:escritorio_jm/screens/LoginScreen.dart';
 import 'package:escritorio_jm/screens/adicionar_tarefa.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/tarefa.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.light,
+      initialRoute: (isLogged) ? "home" : "login",
       theme: ThemeData(
         primarySwatch: Colors.grey,
         appBarTheme: const AppBarTheme(
@@ -48,9 +49,8 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.bitterTextTheme(),
       ),
-      initialRoute: (isLogged) ? "home" : "login",
       routes: {
-        "home": (context) => HomeScreen(),
+        "home": (context) => const HomeScreen(),
         "login": (context) => LoginScreen(),
       },
       onGenerateRoute: (settings) {
