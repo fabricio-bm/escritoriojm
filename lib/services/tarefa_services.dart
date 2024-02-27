@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:escritorio_jm/models/tarefa.dart';
 import 'package:escritorio_jm/services/webclient.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-//import '../models/journal.dart';
 
 class TarefaService {
   static const String resource = "tarefa/";

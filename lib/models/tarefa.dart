@@ -1,12 +1,12 @@
-import 'package:uuid/uuid.dart';
+import 'package:convert/convert.dart';
 
 class Tarefa {
-  String id;
+  int id;
   String titulo;
   DateTime dataInicio;
   DateTime dataFinal;
-  String userId;
-  String realizadorId;
+  int userId;
+  int realizadorId;
   String descricao;
   String status;
   bool obrigatorio;
@@ -24,15 +24,14 @@ class Tarefa {
     required this.status,
     required this.descricao,
   });
-
-  Tarefa.empty({required this.userId})
-      : id = Uuid().v1(),
+  var v1;
+  Tarefa.empty({required this.userId, required this.realizadorId})
+        : id = generated,
         titulo = "",
         dataInicio = DateTime.now(),
         dataFinal = DateTime.now(),
         obrigatorio = false,
         recorrente = false,
-        realizadorId = "",
         status = "",
         descricao = "";
 
@@ -41,12 +40,12 @@ class Tarefa {
         titulo = map['titulo'],
         dataInicio = DateTime.parse(map['dataInicio']),
         dataFinal = DateTime.parse(map['dataFinal']),
-        userId = map['userId'].toString(),
-        realizadorId = map['realizadorId'].toString(),
+        userId = int.parse(map['userId']),
+        realizadorId = int.parse(map['realizadorId']),
         status = map['status'].toString(),
         descricao = map['descricao'].toString(),
-        obrigatorio = map['obrigatorio'].toString().toLowerCase() == 'true',
-        recorrente = map['recorrente'].toString().toLowerCase() == 'true';
+        obrigatorio = bool.parse(map['obrigatorio']),
+        recorrente = bool.parse(map['recorrente']);
 
   @override
   String toString() {
@@ -66,5 +65,16 @@ class Tarefa {
       'status': status.toString(),
       'descricao': descricao.toString(),
     };
+  }
+  String generateUuid() {
+    var rng = new Math.Random.secure();
+    var hexValues = new List<String>.generate(32,
+            (index) => index.toRadixString(16).padLeft(2, '0'));
+
+    return hexValues.sublist(0, 8).join('-') +
+        hexValues.sublist(8, 12).join('-') +
+        hexValues.sublist(12, 16).join('-') +
+        hexValues.sublist(16, 20).join('-') +
+        hexValues.sublist(20).join('');
   }
 }
