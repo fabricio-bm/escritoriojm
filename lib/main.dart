@@ -1,6 +1,6 @@
 import 'package:escritorio_jm/screens/LoginScreen.dart';
-import 'package:escritorio_jm/screens/adicionar_tarefa.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
+import 'package:escritorio_jm/screens/tarefa/cadastro_tarefa.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Escritório JM',
+      localizationsDelegates:  [
+        DefaultMaterialLocalizations.delegate],
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.light,
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
 
           return MaterialPageRoute(
             builder: (context) {
-              return AdicionarTarefa(tarefa: tarefa, isEditing: isEditing);
+              return CadastroTarefa();
             },
           );
         }

@@ -1,4 +1,7 @@
-import 'package:escritorio_jm/screens/cadastro.dart';
+import 'package:escritorio_jm/screens/processos/cadastro_processos.dart';
+import 'package:escritorio_jm/screens/tarefa/cadastro_tarefa.dart';
+import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
+import 'package:escritorio_jm/screens/cliente/cadastro_cliente.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,7 +42,7 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (
-                              context) => Cadastro())
+                              context) => CadastroUsuario())
                           );
                         },
                         child: MenuAcceleratorLabel('&Cadastro'),
@@ -61,7 +64,7 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.person_add_alt_rounded),
                         onPressed: () {
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroCliente()));
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),
@@ -79,7 +82,7 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.add_task_rounded),
                         onPressed: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroTarefa()));
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),
@@ -97,7 +100,7 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.library_add_rounded),
                         onPressed: () {
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroProcessos()));
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),

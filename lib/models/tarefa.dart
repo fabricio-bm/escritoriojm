@@ -1,4 +1,5 @@
-import 'package:convert/convert.dart';
+import 'package:uuid/data.dart';
+import 'package:uuid/uuid.dart';
 
 class Tarefa {
   int id;
@@ -12,6 +13,8 @@ class Tarefa {
   bool obrigatorio;
   bool recorrente;
 
+  //
+
   Tarefa({
     required this.id,
     required this.titulo,
@@ -24,9 +27,10 @@ class Tarefa {
     required this.status,
     required this.descricao,
   });
-  var v1;
+
+
   Tarefa.empty({required this.userId, required this.realizadorId})
-        : id = generated,
+        : id = 1,
         titulo = "",
         dataInicio = DateTime.now(),
         dataFinal = DateTime.now(),
@@ -65,16 +69,5 @@ class Tarefa {
       'status': status.toString(),
       'descricao': descricao.toString(),
     };
-  }
-  String generateUuid() {
-    var rng = new Math.Random.secure();
-    var hexValues = new List<String>.generate(32,
-            (index) => index.toRadixString(16).padLeft(2, '0'));
-
-    return hexValues.sublist(0, 8).join('-') +
-        hexValues.sublist(8, 12).join('-') +
-        hexValues.sublist(12, 16).join('-') +
-        hexValues.sublist(16, 20).join('-') +
-        hexValues.sublist(20).join('');
   }
 }

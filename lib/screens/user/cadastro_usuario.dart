@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Cadastro extends StatelessWidget {
+class CadastroUsuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white.withOpacity(0),
+        //backgroundColor: Colors.white.withOpacity(0),
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(
-            top: 80,
+            top: 0,
             left: 20,
             right: 20,
             bottom: 40,
@@ -39,21 +39,16 @@ class Cadastro extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Text(
-                        "Cadastro de Usuários",
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       Image.asset("logo-jm-2023.png",height: 100,),
                       SizedBox(height: 20,),
                       TextFormField(
                         // autofocus: true,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
                           labelText: "Nome",
-                          icon: Icon(Icons.drive_file_rename_outline_rounded),
+                          prefixIcon: Icon(Icons.drive_file_rename_outline_rounded),
                           labelStyle: TextStyle(
                             //color: Colors,
                             fontWeight: FontWeight.w400,
@@ -72,8 +67,10 @@ class Cadastro extends StatelessWidget {
                         // autofocus: true,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
                           labelText: "Email",
-                          icon:Icon(Icons.email_outlined),
+                          prefixIcon:Icon(Icons.email_outlined),
                           labelStyle: TextStyle(
                             //color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400,
@@ -93,8 +90,10 @@ class Cadastro extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         obscureText: true,
                         decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
                           labelText: "Password",
-                          icon: Icon(Icons.password_outlined),
+                          prefixIcon: Icon(Icons.password_outlined),
                           labelStyle: TextStyle(
                             //color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400,
@@ -103,28 +102,31 @@ class Cadastro extends StatelessWidget {
                         ),
                         style: TextStyle(
                           fontSize: 20,
-                         // color: Theme.of(context).primaryColor,
+                          // color: Theme.of(context).primaryColor,
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 10,
                       ),
                       TextFormField(
                         // autofocus: true,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.phone,
                         obscureText: true,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.phone_outlined),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
+                          hintText: "(DDD)00000-0000",
+                          prefixIcon: Icon(Icons.phone_outlined),
                           labelText: "Telefone",
                           labelStyle: TextStyle(
-                           // color: Theme.of(context).primaryColor,
+                            // color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                           ),
                         ),
                         style: TextStyle(
                           fontSize: 20,
-                         // color: Theme.of(context).primaryColor,
+                          // color: Theme.of(context).primaryColor,
                         ),
                       ),
                       SizedBox(height: 20,),
@@ -133,27 +135,29 @@ class Cadastro extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         obscureText: true,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.work_outlined),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
+                          prefixIcon: Icon(Icons.work_outlined),
                           labelText: "Cargo",
                           labelStyle: TextStyle(
-                           //color: Theme.of(context).primaryColor,
+                            //color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                           ),
                         ),
                         style: TextStyle(
                           fontSize: 20,
-                         // color: Theme.of(context).primaryColor,
+                          // color: Theme.of(context).primaryColor,
                         ),
                       ),
                       SizedBox(height: 20,),
 
                       TextButton(
                         onPressed: () {
-                         // Navigator.push(
-                           //   context,
-                            //  MaterialPageRoute(
-                              //    builder: (context) => HomeScreen()));
+                          // Navigator.push(
+                          //   context,
+                          //  MaterialPageRoute(
+                          //    builder: (context) => HomeScreen()));
                         },
                         style: TextButton.styleFrom(
                           elevation: 0,

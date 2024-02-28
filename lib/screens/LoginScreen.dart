@@ -1,15 +1,12 @@
-// ignore_for_file: use_build_context_synchronously
+
 
 import 'dart:io';
 
-import 'package:escritorio_jm/screens/cadastro.dart';
+import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../services/auth_services.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +14,6 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -61,27 +57,32 @@ class LoginScreen extends StatelessWidget {
                         ),
                         TextButton(onPressed: () {
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => Cadastro()));
+                              builder: (context) => CadastroUsuario()));
                         }, child: Text("Cadastre-se",
                           style: TextStyle(color: Colors.black),)),
                         SizedBox(
                           height: 50,
                           child: TextFormField(
                             controller: _idController,
-                            decoration: const InputDecoration(
-                              icon: Icon(Icons.supervised_user_circle),
+                            decoration:  InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0)),
+                              prefixIcon: Icon(Icons.supervised_user_circle),
                               label: Text("ID"),
                             ),
                             keyboardType: TextInputType.number,
                           ),
                         ),
+                        SizedBox(height: 30,),
                         SizedBox(
                           height: 100,
                           child: TextFormField(
                             controller: _passwordController,
-                            decoration: const InputDecoration(
+                            decoration:  InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 label: Text("Senha"),
-                                icon: Icon(Icons.password_outlined)),
+                                prefixIcon: Icon(Icons.password_outlined)),
                             keyboardType: TextInputType.number,
                             maxLength: 16,
                             obscureText: true,
@@ -128,45 +129,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Future<void> tryLogin(BuildContext context) async {
-    String id = _idController.text;
 
-    try {
-      final token = await authService.login(email: '', password: '');
-      Navigator.pushNamed(context, 'home');
-    } on UserNotFindException catch (e) {
-      final shouldCreateUser = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Usuário ainda não existe'),
-            content: Text('Deseja criar um novo usuário com email $id?'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Não'),
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              TextButton(
-                child: Text('Sim'),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-              ),
-            ],
-          );
-        },
-      );
-
-      if (shouldCreateUser == true) {
-        final token = await authService.register(email: '', password: '');
-        Navigator.pushReplacementNamed(context, 'home');
-      }
-    } on HttpException catch (e) {
-      showExceptionDialog(context, e.message);
-    }
-  }
 
   void showExceptionDialog(BuildContext context, dynamic exception) {
     showDialog(
