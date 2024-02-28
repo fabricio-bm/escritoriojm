@@ -1,0 +1,70 @@
+import '../../models/cliente.dart';
+import '../../models/usuario.dart';
+
+class NovaTarefaDTO {
+  final String codigoEmpresa;
+  final String codigoCliente;
+  final String cidadeCliente;
+  final String nomeCliente;
+  final String atendente;
+  final String telefoneCliente;
+  final String localizacao;
+  final String tipo;
+  final String subTipo;
+  final DateTime dataAbertura;
+  final String canalAtendimento;
+  final DateTime dataPrevisao;
+  final String relato;
+  final String obs;
+  final bool urgente;
+  final String status;
+
+  NovaTarefaDTO({this.codigoEmpresa,
+    this.codigoCliente,
+    this.cidadeCliente,
+    this.nomeCliente,
+    this.atendente,
+    this.telefoneCliente,
+    this.localizacao,
+    this.tipo,
+    this.subTipo,
+    this.dataAbertura,
+    this.canalAtendimento,
+    this.dataPrevisao,
+    this.relato,
+    this.obs,
+    this.urgente,
+    this.status});
+
+  static Future<NovaTarefaDTO> buildNovaTarefa(Cliente cliente,
+      Usuario localizacao, TipoChamado tipoChamado, bool urgente,
+      DateTime dataPrevisao,
+      String relato) async {
+    Usuario usuarioQueAbriuChamado = await UsuarioPreferences().getUsuario();
+    return NovoChamadoDTO(
+      codigoEmpresa: '2',
+      canalAtendimento: 'INTERNO',
+      obs: '(Aberto Pelo App)',
+      status: kChamadoStatusAberto,
+      dataAbertura: DateTime.now(),
+      dataPrevisao: dataPrevisao,
+      codigoCliente: cliente.codigo,
+      cidadeCliente: cliente.cidade?.toUpperCase(),
+      nomeCliente: cliente.nomeFantasia,
+      atendente: usuarioQueAbriuChamado.nome,
+      telefoneCliente: cliente.telefone,
+      localizacao: localizacao.nome,
+      tipo: tipoChamado.descricao,
+      subTipo: tipoChamado.subTipo ?? "",
+      relato: relato,
+      urgente: urgente,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'NovoChamadoDTO{codigoEmpresa: $codigoEmpresa, codigoCliente: $codigoCliente, cidadeCliente: $cidadeCliente, nomeCliente: $nomeCliente, atendente: $atendente, telefoneCliente: $telefoneCliente, localizacao: $localizacao, tipo: $tipo, subTipo: $subTipo, dataAbertura: $dataAbertura, canalAtendimento: $canalAtendimento, dataPrevisao: $dataPrevisao, relato: $relato, obs: $obs, urgente: $urgente, status: $status}';
+  }
+
+
+}

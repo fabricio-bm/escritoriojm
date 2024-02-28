@@ -1,10 +1,9 @@
+import 'package:escritorio_jm/screens/cliente/cadastro_cliente.dart';
 import 'package:escritorio_jm/screens/processos/cadastro_processos.dart';
 import 'package:escritorio_jm/screens/tarefa/cadastro_tarefa.dart';
 import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
-import 'package:escritorio_jm/screens/cliente/cadastro_cliente.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,7 +22,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeScreen extends State<Home> {
-  final Uri _url = Uri.parse('https://web.whatsapp.com/send/?phone=5514997860855&text=Ol%C3%A1+tenho+interesse+no+seu+trabalho&type=phone_number&app_absent=0');
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +39,10 @@ class _HomeScreen extends State<Home> {
                     menuChildren: <Widget>[
                       MenuItemButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (
-                              context) => CadastroUsuario())
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroUsuario())
                           );
                         },
-                        child: MenuAcceleratorLabel('&Cadastro'),
+                        child:  MenuAcceleratorLabel('&Cadastro'),
                         leadingIcon: Icon(Icons.person_add_alt_1_rounded),
                       ),
                       MenuItemButton(
@@ -64,13 +61,15 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.person_add_alt_rounded),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroCliente()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroCliente())
+                          );
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),
                       MenuItemButton(
                         leadingIcon: Icon(Icons.person_search_rounded),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: const MenuAcceleratorLabel('Consulta'),
                       ),
                     ],
@@ -82,13 +81,15 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.add_task_rounded),
                         onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroTarefa()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroTarefa())
+                          );
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),
                       MenuItemButton(
                         leadingIcon: Icon(Icons.task),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: const MenuAcceleratorLabel('Consulta'),
                       ),
                     ],
@@ -100,24 +101,20 @@ class _HomeScreen extends State<Home> {
                       MenuItemButton(
                         leadingIcon: Icon(Icons.library_add_rounded),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroProcessos()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CadastroProcessos())
+                          );
                         },
                         child: const MenuAcceleratorLabel('&Cadastro'),
                       ),
                       MenuItemButton(
                         leadingIcon: Icon(Icons.library_add_check_rounded),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: const MenuAcceleratorLabel('Consulta'),
                       ),
                     ],
                     child: const MenuAcceleratorLabel('&Processos'),
                     leadingIcon: Icon(Icons.article_rounded),
-                  ),
-                  MenuItemButton(
-                    onPressed: _launchUrl,
-                    child: Text("Suporte"),
-                    leadingIcon: Icon(Icons.adb_rounded),
-
                   ),
                 ],
               ),
@@ -126,23 +123,12 @@ class _HomeScreen extends State<Home> {
         ),
         Expanded(
           child: Image.asset(
-            "logo-jm-2023.png", height: MediaQuery
-              .of(context)
-              .size
-              .shortestSide * 0.5,
-            width: MediaQuery
-                .of(context)
-                .size
-                .shortestSide * 0.5,
+            "assets/images/logo-jm-2023.png",height: MediaQuery.of(context).size.shortestSide*0.5,
+            width: MediaQuery.of(context).size.shortestSide * 0.5,
           ),
         ),
       ],
     );
-  }
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
   }
 }
 

@@ -1,9 +1,9 @@
-
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-
-import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
+import 'package:escritorio_jm/screens/configuracoes/configuracoes.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
+import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +13,6 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +38,12 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.bookmark,
-                          size: 64,
-                          color: Colors.greenAccent,
+                         IconButton(
+                          icon: Icon(Icons.bookmark, size: 64,),
+                          color: Colors.greenAccent, onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => ConfiguracoesPage()));
+                        }
                         ),
                         const Text(
                           "Escritório JM",
@@ -64,25 +65,20 @@ class LoginScreen extends StatelessWidget {
                           height: 50,
                           child: TextFormField(
                             controller: _idController,
-                            decoration:  InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              prefixIcon: Icon(Icons.supervised_user_circle),
+                            decoration: const InputDecoration(
+                              icon: Icon(Icons.supervised_user_circle),
                               label: Text("ID"),
                             ),
                             keyboardType: TextInputType.number,
                           ),
                         ),
-                        SizedBox(height: 30,),
                         SizedBox(
                           height: 100,
                           child: TextFormField(
                             controller: _passwordController,
-                            decoration:  InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0)),
+                            decoration: const InputDecoration(
                                 label: Text("Senha"),
-                                prefixIcon: Icon(Icons.password_outlined)),
+                                icon: Icon(Icons.password_outlined)),
                             keyboardType: TextInputType.number,
                             maxLength: 16,
                             obscureText: true,
@@ -128,7 +124,6 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
 
 
   void showExceptionDialog(BuildContext context, dynamic exception) {

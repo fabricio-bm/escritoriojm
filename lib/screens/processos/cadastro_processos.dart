@@ -46,7 +46,7 @@ class CadastroProcessos extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Image.asset(
-                        "logo-jm-2023.png",
+                        "assets/images/logo-jm-2023.png",
                         height: 100,
                       ),
                       SizedBox(

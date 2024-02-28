@@ -39,7 +39,7 @@ class CadastroUsuario extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Image.asset("logo-jm-2023.png",height: 100,),
+                      Image.asset("assets/images/logo-jm-2023.png",height: 100,),
                       SizedBox(height: 20,),
                       TextFormField(
                         // autofocus: true,

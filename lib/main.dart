@@ -1,10 +1,8 @@
-import 'package:escritorio_jm/screens/LoginScreen.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
-import 'package:escritorio_jm/screens/tarefa/cadastro_tarefa.dart';
+import 'package:escritorio_jm/screens/login/tela_abertura.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'models/tarefa.dart';
 
 
 void main() async {
@@ -34,8 +32,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Escritório JM',
-      localizationsDelegates:  [
-        DefaultMaterialLocalizations.delegate],
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.light,
@@ -51,24 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.bitterTextTheme(),
       ),
+      home: TelaAbertura(),
       routes: {
-        "home": (context) => const HomeScreen(),
-        "login": (context) => LoginScreen(),
-      },
-      onGenerateRoute: (settings) {
-        if (settings.name == "add-tarefa") {
-          Map<String, dynamic> map = settings.arguments as Map<String, dynamic>;
-
-          final Tarefa tarefa = map['tarefa'] as Tarefa;
-          final bool isEditing = map['is_editing'];
-
-          return MaterialPageRoute(
-            builder: (context) {
-              return CadastroTarefa();
-            },
-          );
-        }
-        return null;
+        "/principal": (BuildContext context) => HomeScreen(),
       },
     );
   }
