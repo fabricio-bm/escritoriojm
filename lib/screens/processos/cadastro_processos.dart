@@ -1,3 +1,6 @@
+import 'package:escritorio_jm/components/my_button.dart';
+import 'package:escritorio_jm/components/my_date.dart';
+import 'package:escritorio_jm/components/my_textForm.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -6,6 +9,9 @@ class CadastroProcessos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _nome= TextEditingController();
+    final TextEditingController _destinatario= TextEditingController();
+    final TextEditingController _etapa= TextEditingController();
     final TextEditingController _dataInicioController = TextEditingController();
     final TextEditingController _dataFinalController = TextEditingController();
 
@@ -52,151 +58,23 @@ class CadastroProcessos extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Nome do Processo:",
-                          prefixIcon: Icon(Icons.article_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
+                      MyTextForm(TextInputType.text,false, title: "Nome do Processo", prefixicon: Icons.article_rounded, controller: _nome,),
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Destinatário:",
-                          prefixIcon: Icon(Icons.person_search_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
+                      MyTextForm(TextInputType.text,false, title: "Destinatário", prefixicon: Icons.person_search_rounded, controller: _destinatario,),
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.datetime,
-                        controller: _dataInicioController,
-                        decoration: InputDecoration(
-                          labelText: 'Data Início',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          hintText: "Data Início",
-                          prefixIcon: IconButton(
-                            padding: EdgeInsets.all(8),
-                            icon: const Icon(Icons.calendar_today),
-                            onPressed: () async {
-                              // Show date picker and wait for the selected date
-                              final selectedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2030),
-                                keyboardType: TextInputType.datetime,
-                                fieldLabelText: 'Data Início',
-                              );
-
-                              if (selectedDate != null) {
-                                // Update the text field with the selected date
-                                _dataInicioController.text =
-                                    DateFormat('dd/MM/yyyy')
-                                        .format(selectedDate);
-                              }
-                            },
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Por favor, insira a data de início do processo';
-                          }
-                          return null;
-                        },
-                      ),
+                      MyDate(titulo: 'Data Inicial', controller: _dataInicioController, prefixicon: Icons.calendar_today),
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.datetime,
-                        controller: _dataFinalController,
-                        decoration: InputDecoration(
-                          labelText: 'Data Final',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          hintText: "Data Final",
-                          prefixIcon: IconButton(
-                            icon: const Icon(Icons.calendar_today),
-                            onPressed: () async {
-                              // Show date picker and wait for the selected date
-                              final selectedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2030),
-                                keyboardType: TextInputType.datetime,
-                                fieldLabelText: 'Data Final',
-                              );
-
-                              if (selectedDate != null) {
-                                // Update the text field with the selected date
-                                _dataFinalController.text =
-                                    DateFormat('dd/MM/yyyy')
-                                        .format(selectedDate);
-                              }
-                            },
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Por favor, insira a data final do processo';
-                          }
-                          return null;
-                        },
-                      ),
+                      MyDate(titulo: 'Data Final', controller: _dataFinalController, prefixicon: Icons.calendar_today),
                       SizedBox(
                         height: 10,
                       ),
-
-                      TextFormField(
-                        maxLines: 10,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          icon: Icon(Icons.edit_note_rounded),
-                          labelText: "Etapa",
-                          labelStyle: TextStyle(
-                            // color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          // color: Theme.of(context).primaryColor,
-                        ),
-                      ),
+                      MyTextForm(TextInputType.text,false, title: "Etapa", prefixicon: Icons.edit_note_rounded, controller: _etapa, ),
                       SizedBox(
                         height: 20,
                       ),
@@ -204,31 +82,7 @@ class CadastroProcessos extends StatelessWidget {
                       SizedBox(
                         height: 40,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //  MaterialPageRoute(
-                          //    builder: (context) => HomeScreen()));
-                        },
-                        style: TextButton.styleFrom(
-                          elevation: 0,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 180,
-                            vertical: 20,
-                          ),
-                          textStyle: TextStyle(fontSize: 16),
-                          backgroundColor: Colors.black,
-                          side: BorderSide(style: BorderStyle.solid),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          'Confirmar Cadastro',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      MyButton((){}, "Cadastrar Processo")
                     ],
                   ),
                 ),

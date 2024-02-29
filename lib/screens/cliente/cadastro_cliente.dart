@@ -1,6 +1,13 @@
+import 'package:escritorio_jm/components/my_button.dart';
+import 'package:escritorio_jm/components/my_textForm.dart';
 import 'package:flutter/material.dart';
 
 class CadastroCliente extends StatelessWidget {
+  final TextEditingController _razaoSocial = TextEditingController();
+  final TextEditingController _cnpj = TextEditingController();
+  final TextEditingController _fantasia = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _telefone = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +17,7 @@ class CadastroCliente extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 0,
             left: 20,
             right: 20,
@@ -31,7 +38,7 @@ class CadastroCliente extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 15,
                     right: 15,
                     top: 60,
@@ -41,143 +48,27 @@ class CadastroCliente extends StatelessWidget {
                     children: <Widget>[
                       Image.asset(
                         "assets/images/logo-jm-2023.png",height: 100,),
-                      SizedBox(height: 20,),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Razão Social",
-                          prefixIcon: Icon(Icons.broadcast_on_personal_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
+                      const SizedBox(height: 20,),
+                       MyTextForm(TextInputType.text,false, title: "Razão Social", prefixicon: Icons.broadcast_on_personal_rounded, controller: _razaoSocial,),
+                      const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Nome Fantasia",
-                          prefixIcon: Icon(Icons.drive_file_rename_outline_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
+                       MyTextForm(TextInputType.text,false, title: "Nome Fantasia", prefixicon: Icons.add_home_work_outlined, controller: _fantasia,),
+                      const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "CNPJ",
-                          prefixIcon: Icon(Icons.insert_drive_file_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
+                       MyTextForm(TextInputType.text,false, title: "CNPJ", prefixicon: Icons.insert_drive_file_outlined, controller: _cnpj,),
+                      const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Email",
-                          prefixIcon:Icon(Icons.email_outlined),
-                          labelStyle: TextStyle(
-                            //color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
+                       MyTextForm(TextInputType.emailAddress, false, title: "E-mail", prefixicon: Icons.email_outlined, controller: _email,),
+                      const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          prefixIcon: Icon(Icons.phone_outlined),
-                          labelText: "Telefone",
-                          labelStyle: TextStyle(
-                            // color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          // color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(height: 40,),
-                      TextButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //  MaterialPageRoute(
-                          //    builder: (context) => HomeScreen()));
-                        },
-                        style: TextButton.styleFrom(
-                          elevation: 0,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 180,
-                            vertical: 20,
-                          ),
-
-                          textStyle: TextStyle(fontSize: 16),
-                          backgroundColor: Colors.black,
-
-                          side: BorderSide(style: BorderStyle.solid),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          'Confirmar Cadastro',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                       MyTextForm(TextInputType.text,false, title: "Telefone", prefixicon: Icons.phone_outlined, controller: _telefone,),
+                      const SizedBox(height: 40,),
+                      MyButton((){}, "Cadastrar Cliente"
+                          "")
                     ],
                   ),
                 ),

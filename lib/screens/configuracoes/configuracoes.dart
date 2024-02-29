@@ -96,11 +96,11 @@ class ConfiguracoesPageState extends State<ConfiguracoesPage> {
                 onThemeChanged(val, themeNotifier);
               },
             ),
-            MyCardButton(
-              onTap: () => _salvar(),
-              icon: Icons.check,
-              title: 'Salvar',
-            ),
+           // MyCardButton(
+             // onTap: () => _salvar(),
+              //icon: Icons.check,
+             // title: 'Salvar',
+            //),
           ],
         ),
       ),

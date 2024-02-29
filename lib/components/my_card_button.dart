@@ -12,10 +12,11 @@ class MyCardButton extends StatelessWidget {
   final double horizontalPadding;
   final bool isLoading;
 
-  const MyCardButton({
-    this.title = "",
-    required this.icon,
-    required this.onTap,
+  const MyCardButton(
+      this.title,
+      this.icon,
+      this.onTap,
+      {
     this.cardColor = MyColors.accent,
     this.iconColor = MyColors.white,
     this.textColor = MyColors.textWhite,

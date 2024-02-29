@@ -1,3 +1,7 @@
+import 'package:escritorio_jm/components/my_button.dart';
+import 'package:escritorio_jm/components/my_card_button.dart';
+import 'package:escritorio_jm/components/my_date.dart';
+import 'package:escritorio_jm/components/my_textForm.dart';
 import 'package:escritorio_jm/components/my_usuarios_dropdown.dart';
 import 'package:escritorio_jm/models/tarefa.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +17,9 @@ class CadastroTarefa extends StatefulWidget {
 class _cadastrotarefaState extends State<CadastroTarefa> {
   bool _obrigatorio = false;
   bool _recorrente = false;
+  final TextEditingController _nome = TextEditingController();
+  final TextEditingController _destinatario = TextEditingController();
+  final TextEditingController _explicacao = TextEditingController();
   final TextEditingController _dataInicioController = TextEditingController();
   final TextEditingController _dataFinalController = TextEditingController();
   late Tarefa status;
@@ -66,149 +73,23 @@ class _cadastrotarefaState extends State<CadastroTarefa> {
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
-                          // autofocus: true,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            labelText: "Nome da Tarefa",
-                            prefixIcon: Icon(Icons.edit),
-                            labelStyle: TextStyle(
-                              //color: Colors,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 20,
-                            //color: Theme.of(context).primaryColor,
-                          ),
-                        ),
+                        MyTextForm(TextInputType.text,false, title: "Nome Da Tarefa", prefixicon: Icons.edit, controller: _nome,),
                         SizedBox(
                           height: 10,
                         ),
-                        TextFormField(
-                          // autofocus: true,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            labelText: "Destinatário",
-                            prefixIcon: Icon(Icons.person),
-                            labelStyle: TextStyle(
-                              //color: Colors,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 20,
-                            //color: Theme.of(context).primaryColor,
-                          ),
-                        ),
+                        MyTextForm(TextInputType.text,false, title: "Destinatário", prefixicon: Icons.person, controller: _destinatario,),
                         SizedBox(
                           height: 10,
                         ),
-                        TextFormField(
-                          keyboardType: TextInputType.datetime,
-                          controller: _dataInicioController,
-                          decoration: InputDecoration(
-                            labelText: 'Data Início',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            hintText: "Data Início",
-                            prefixIcon: IconButton(
-                              icon: const Icon(Icons.calendar_today),
-                              onPressed: () async {
-                                // Show date picker and wait for the selected date
-                                final selectedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2030),
-                                  keyboardType: TextInputType.datetime,
-                                  fieldLabelText: 'Data Início',
-                                );
-
-                                if (selectedDate != null) {
-                                  // Update the text field with the selected date
-                                  _dataInicioController.text =
-                                      DateFormat('dd/MM/yyyy')
-                                          .format(selectedDate);
-                                }
-                              },
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, insira a data de início do processo';
-                            }
-                            return null;
-                          },
-                        ),
+                        MyDate(titulo: "Data Inicial", controller: _dataInicioController, prefixicon: Icons.calendar_today),
                         SizedBox(
                           height: 10,
                         ),
-                        TextFormField(
-                          keyboardType: TextInputType.datetime,
-                          controller: _dataFinalController,
-                          decoration: InputDecoration(
-                            labelText: 'Data Final',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            hintText: "Data Final",
-                            prefixIcon: IconButton(
-                              icon: const Icon(Icons.calendar_today),
-                              onPressed: () async {
-                                // Show date picker and wait for the selected date
-                                final selectedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2030),
-                                  keyboardType: TextInputType.datetime,
-                                  fieldLabelText: 'Data Final',
-                                );
-
-                                if (selectedDate != null) {
-                                  // Update the text field with the selected date
-                                  _dataFinalController.text =
-                                      DateFormat('dd/MM/yyyy')
-                                          .format(selectedDate);
-                                }
-                              },
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, insira a data final do processo';
-                            }
-                            return null;
-                          },
-                        ),
+                        MyDate(titulo: "Data Final", controller: _dataFinalController, prefixicon: Icons.calendar_today),
                         SizedBox(
                           height: 10,
                         ),
-                        TextFormField(
-                          // autofocus: true,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            labelText: "Explicação",
-                            prefixIcon: Icon(Icons.manage_search_rounded),
-                            labelStyle: TextStyle(
-                              //color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
+                        MyTextForm(TextInputType.text, false,title: "Explicação", prefixicon: Icons.manage_search_rounded, controller: _explicacao,),
                         SizedBox(
                           height: 10,
                         ),
@@ -220,29 +101,14 @@ class _cadastrotarefaState extends State<CadastroTarefa> {
                                 setState(() {
                                   _obrigatorio = value!;
                                 });
-                              }, child: Text("Obrigatório:"))
-                              /*CheckboxListTile(
-                                title: Text('Obrigatório:'),
-                               // controlAffinity: ListTileControlAffinity.leading,
-                                value: _obrigatorio,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _obrigatorio = value!;
-                                  });
-                                },
-                              ),
-                                CheckboxListTile(
-                                  title: Text('Recorrente:'),
-                                 // controlAffinity: ListTileControlAffinity.leading,
-                                  value: _recorrente,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _recorrente = value!;
-                                    });
-                                  },
-                                ),
-
-                               */
+                              }, child: Text("Obrigatório")),
+                              SizedBox(width: 20,),
+                              CheckboxMenuButton(value: _recorrente, onChanged: (value){
+                                setState(() {
+                                  _recorrente = value!;
+                                });
+                              }, child: Text("Recorrente")),
+                              SizedBox(width: 20,),
 
                             ]),
                         SizedBox(
@@ -251,31 +117,7 @@ class _cadastrotarefaState extends State<CadastroTarefa> {
                         SizedBox(
                           height: 40,
                         ),
-                        TextButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //  MaterialPageRoute(
-                            //    builder: (context) => HomeScreen()));
-                          },
-                          style: TextButton.styleFrom(
-                            elevation: 0,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 180,
-                              vertical: 20,
-                            ),
-                            textStyle: TextStyle(fontSize: 16),
-                            backgroundColor: Colors.black,
-                            side: BorderSide(style: BorderStyle.solid),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            'Cadastrar Tarefa',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
+                          MyButton((){}, "Cadastrar Tarefa")
                       ],
                     ),
                   ),

@@ -1,57 +1,44 @@
+import 'package:escritorio_jm/res/my_themes.dart';
 import 'package:escritorio_jm/screens/home_screen.dart';
-import 'package:escritorio_jm/screens/login/tela_abertura.dart';
+import 'package:escritorio_jm/screens/login/LoginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'notifier/theme_notifier.dart';
+void main() {
+  SharedPreferences.getInstance().then((prefs){
+    var darkModeOn = prefs.getBool('darkMode') ?? false;
+    runApp(ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+      child: MyApp(),),
+    );
+  });
+}
 
-void main() async {
+  /*
   WidgetsFlutterBinding.ensureInitialized();
 
-  bool isLogged = await verifyToken();
-  runApp(MyApp(
-    isLogged: isLogged,
-  ));
+  SharedPreferences.getInstance().then((prefs) {
+    var darkModeOn = prefs.getBool('darkMode') ?? false;
+    runApp(
+      ChangeNotifierProvider<ThemeNotifier>(
+        create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+        child: MyApp(),
+      ),
+    );
+  });
 }
-
-Future<bool> verifyToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? token = prefs.getString("accesToken");
-  if (token != null) {
-    return true;
-  }
-  return false;
-}
-
+*/
 class MyApp extends StatelessWidget {
-  final bool isLogged;
-
-  const MyApp({Key? key, required this.isLogged}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
-      title: 'Escritório JM',
       debugShowCheckedModeBanner: false,
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.light,
-      initialRoute: (isLogged) ? "home" : "login",
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        appBarTheme: const AppBarTheme(
-          elevation: 0,
-          backgroundColor: Colors.black,
-          titleTextStyle: TextStyle(color: Colors.white),
-          actionsIconTheme: IconThemeData(color: Colors.white),
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        textTheme: GoogleFonts.bitterTextTheme(),
-      ),
-      home: TelaAbertura(),
-      routes: {
-        "/principal": (BuildContext context) => HomeScreen(),
-      },
+      title: 'Escritório JM',
+      theme: themeNotifier.getTheme(),
+         home: LoginScreen(),
     );
   }
-
 }
