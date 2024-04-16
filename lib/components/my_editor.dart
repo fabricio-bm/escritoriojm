@@ -22,7 +22,7 @@ class MyEditor extends StatelessWidget {
     this.dica = "",
     this.enabled = true,
     this.ocultarConteudo = false,
-    this.maxLines=50,
+    this.maxLines=1,
     this.numeric = false,
     this.autoFocus = false,
     required this.onTap,
