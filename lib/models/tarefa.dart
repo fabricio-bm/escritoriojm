@@ -13,8 +13,6 @@ class Tarefa {
   bool obrigatorio;
   bool recorrente;
 
-  //
-
   Tarefa({
     required this.id,
     required this.titulo,

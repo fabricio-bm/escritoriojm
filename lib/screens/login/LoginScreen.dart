@@ -1,18 +1,34 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-import 'package:escritorio_jm/screens/configuracoes/configuracoes.dart';
-import 'package:escritorio_jm/screens/home_screen.dart';
+import 'package:escritorio_jm/components/my_snackbar.dart';
+import 'package:escritorio_jm/firebase_options.dart';
+import 'package:escritorio_jm/screens/login/home_screen.dart';
 import 'package:escritorio_jm/screens/user/cadastro_usuario.dart';
+import 'package:escritorio_jm/servicos/autenticacao_servico.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../../components/dialog.dart';
+import '../../models/usuario.dart';
+
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _idController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String get username => _emailController.text;
+  String get senha => _senhaController.text;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +57,6 @@ class LoginScreen extends StatelessWidget {
                          IconButton(
                           icon: Icon(Icons.bookmark, size: 64,),
                           color: Colors.greenAccent, onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => ConfiguracoesPage()));
                         }
                         ),
                         const Text(
@@ -64,10 +78,10 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                           child: TextFormField(
-                            controller: _idController,
+                            controller: _emailController,
                             decoration: const InputDecoration(
                               icon: Icon(Icons.supervised_user_circle),
-                              label: Text("ID"),
+                              label: Text("E-Mail"),
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -75,21 +89,17 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 100,
                           child: TextFormField(
-                            controller: _passwordController,
+                            controller: _senhaController,
                             decoration: const InputDecoration(
                                 label: Text("Senha"),
                                 icon: Icon(Icons.password_outlined)),
                             keyboardType: TextInputType.number,
                             maxLength: 16,
-                            obscureText: true,
                           ),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
+                          onPressed: ()  {
+                             _entrar(context);
                           },
                           style: TextButton.styleFrom(
                             elevation: 0,
@@ -123,53 +133,18 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
-
-
-  void showExceptionDialog(BuildContext context, dynamic exception) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Erro'),
-          content: Text('Ocorreu um erro: $exception'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> showConfirmationDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirmação'),
-          content: Text('Tem certeza que deseja continuar?'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Sim'),
-              onPressed: () {
-                // Faça algo quando o usuário confirmar.
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+void _entrar(BuildContext context) async {
+    String email = _emailController.text;
+    String senha = _senhaController.text;
+    AutenticacaoServico autenticacaoServico = new AutenticacaoServico();
+    autenticacaoServico.logarUsuario(senha: senha, email: email).then((value) {
+      if (value != null) {
+        return mostrarSnackBar(context: context, texto: "E-mail ou senha incorreta",isErro: true);
+      } else {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+    });
   }
 }

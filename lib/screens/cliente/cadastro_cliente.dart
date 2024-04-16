@@ -1,6 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../components/my_textFormFieldFormaters.dart';
+import '../../models/cliente.dart';
 
-class CadastroCliente extends StatelessWidget {
+class CadastroCliente extends StatefulWidget {
+  CadastroCliente(this.cliente);
+
+  final Cliente cliente;
+
+  @override
+  State<CadastroCliente> createState() => _CadastroClienteState();
+}
+
+class _CadastroClienteState extends State<CadastroCliente> {
+  late TextEditingController _razaoSocialController;
+  late TextEditingController _cnpjController;
+  late TextEditingController _nomeFantasiaController;
+  late TextEditingController _emailController;
+  late TextEditingController _telefoneSocialController;
+
+  @override
+  void initState() {
+    _razaoSocialController =
+        TextEditingController(text: widget.cliente.razaoSocial);
+    _cnpjController = TextEditingController(text: widget.cliente.cnpj);
+    _nomeFantasiaController =
+        TextEditingController(text: widget.cliente.nomeFantasia);
+    _telefoneSocialController =
+        TextEditingController(text: widget.cliente.telefone);
+    _emailController = TextEditingController(text: widget.cliente.email);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _razaoSocialController.dispose();
+    _cnpjController.dispose();
+    _emailController.dispose();
+    _telefoneSocialController.dispose();
+    _nomeFantasiaController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,139 +82,82 @@ class CadastroCliente extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Image.asset(
-                        "assets/images/logo-jm-2023.png",height: 100,),
-                      SizedBox(height: 20,),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Razão Social",
-                          prefixIcon: Icon(Icons.broadcast_on_personal_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
+                        "assets/images/logo-jm-2023.png",
+                        height: 100,
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      MyTextFormField(controller: _razaoSocialController, icon:  Icon(Icons.broadcast_on_personal_rounded), label: "Razão Social"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      MyTextFormField(controller: _nomeFantasiaController, icon:  Icon(Icons.drive_file_rename_outline_rounded), label: "Nome Fantasia"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                     MyTextFormFieldCNPJ(controller: _cnpjController),
                       SizedBox(
                         height: 10,
                       ),
                       TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "Nome Fantasia",
-                          prefixIcon: Icon(Icons.drive_file_rename_outline_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          labelText: "CNPJ",
-                          prefixIcon: Icon(Icons.insert_drive_file_rounded),
-                          labelStyle: TextStyle(
-                            //color: Colors,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          //color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')),
+                        ],
                         // autofocus: true,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12.0)),
                           labelText: "Email",
-                          prefixIcon:Icon(Icons.email_outlined),
+                          prefixIcon: Icon(Icons.email_outlined),
                           labelStyle: TextStyle(
-                            //color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                           ),
                         ),
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).primaryColor,
                         ),
+                        controller: _emailController,
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        // autofocus: true,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          prefixIcon: Icon(Icons.phone_outlined),
-                          labelText: "Telefone",
-                          labelStyle: TextStyle(
-                            // color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                          // color: Theme.of(context).primaryColor,
-                        ),
+                      MyTextFormFieldPhone(
+                          controller: _telefoneSocialController),
+                      SizedBox(
+                        height: 40,
                       ),
-                      SizedBox(height: 40,),
                       TextButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //  MaterialPageRoute(
-                          //    builder: (context) => HomeScreen()));
-                        },
                         style: TextButton.styleFrom(
                           elevation: 0,
                           padding: EdgeInsets.symmetric(
                             horizontal: 180,
                             vertical: 20,
                           ),
-
                           textStyle: TextStyle(fontSize: 16),
                           backgroundColor: Colors.black,
-
                           side: BorderSide(style: BorderStyle.solid),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
+                        onPressed: () {
+                          Map<String, dynamic> novoCliente =
+                              new Map<String, dynamic>();
+                          novoCliente["razao"] = _razaoSocialController.text;
+                          novoCliente["fantasia"] =
+                              _nomeFantasiaController.text;
+                          novoCliente["telefone"] =
+                              _telefoneSocialController.text;
+                          novoCliente["email"] = _emailController.text;
+                          novoCliente["cnpj"] = _cnpjController.text;
+                          FirebaseFirestore.instance
+                              .collection("clientes")
+                              .add(novoCliente)
+                              .whenComplete(() => Navigator.of(context).pop());
+                        },
                         child: Text(
                           'Confirmar Cadastro',
                           style: TextStyle(color: Colors.white),

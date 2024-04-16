@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../models/usuario.dart';
 import '../res/my_colors.dart';
-import '../ws/dao/usuario_dao.dart';
 import 'dialog.dart';
 
 class MyUsuariosDropdownPage extends StatefulWidget {
@@ -29,24 +28,13 @@ class _MyUsuariosDropdownPageState extends State<MyUsuariosDropdownPage> {
   @override
   void initState() {
     super.initState();
-    _usuarios = _getUsuariosFuture();
+    //_usuarios = _getUsuariosFuture();
     _usuarioSelecionado = widget.initialValue;
   }
 
   @override
   Widget build(BuildContext context) {
     return _getLocalizacaoWidget();
-  }
-
-  Future<List<Usuario>> _getUsuariosFuture() async {
-    var dao = UsuarioDAO();
-//    var localizacao = (await UsuarioPreferences().getUsuario()).nome;
-    try {
-      return await dao.getUsuarios();
-    } catch (e) {
-      exibirMensagem(context, 'Erro', e.toString());
-      return Future.error(e.toString());
-    }
   }
 
   Widget _getLocalizacaoWidget() {

@@ -1,0 +1,15 @@
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "escritorio-jm-c8ffd",
+          "configurations": {
+            "web": "1:809514308288:web:c07d00f1a48110fd509325",
+            "windows": "1:809514308288:web:e2eac0c9fcaf7455509325"
+          }
+        }
+      }
+    }
+  }
+}

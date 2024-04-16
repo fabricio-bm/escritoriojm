@@ -1,5 +1,8 @@
-import 'package:escritorio_jm/screens/home_screen.dart';
-import 'package:escritorio_jm/screens/login/tela_abertura.dart';
+import 'dart:js_interop';
+
+import 'package:escritorio_jm/firebase_options.dart';
+import 'package:escritorio_jm/screens/login/LoginScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+   await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform
+   );
   bool isLogged = await verifyToken();
   runApp(MyApp(
     isLogged: isLogged,
@@ -47,11 +52,10 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.bitterTextTheme(),
       ),
-      home: TelaAbertura(),
+      home: LoginScreen(),
       routes: {
-        "/principal": (BuildContext context) => HomeScreen(),
+        "/principal": (BuildContext context) => LoginScreen(),
       },
     );
   }
-
 }

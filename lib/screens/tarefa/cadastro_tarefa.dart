@@ -206,7 +206,6 @@ class _cadastrotarefaState extends State<CadastroTarefa> {
                           ),
                           style: TextStyle(
                             fontSize: 20,
-                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                         SizedBox(
